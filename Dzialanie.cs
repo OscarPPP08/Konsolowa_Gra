@@ -12,6 +12,7 @@ namespace Konsolowa_TablicaDwuWymiarowa
         public static int wiersze = 4;
         public static int kolumny = 4;
 
+        Player gracz;
         public void Konfiguracja()
         {
             Console.Clear();
@@ -21,7 +22,8 @@ namespace Konsolowa_TablicaDwuWymiarowa
             Console.WriteLine("1. Zmien ilość wierszy");
             Console.WriteLine("2. Zmien ilość kolumn");
             Console.WriteLine("3. Zmien ogólną wielkość (wiersze i kolumny te same)");
-            Console.WriteLine("4. Wyczyść ustawienia");
+            Console.WriteLine("4. Zmień nazwe gracza");
+            Console.WriteLine("5. Wyczyść ustawienia");
             Console.WriteLine("0. Wróć");
 
             int wiadomosc = int.Parse(Console.ReadLine());
@@ -44,7 +46,7 @@ namespace Konsolowa_TablicaDwuWymiarowa
 
             Console.Clear();
 
-            //Player newPlayer = new Player(Unit.UnitType.Player, nazwa);
+            gracz = new Player(nazwa);
 
             RestartGry();
         }
@@ -79,6 +81,13 @@ namespace Konsolowa_TablicaDwuWymiarowa
                     kolumny = wielkosc;
                     break;
                 case 4:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Wypisz Nazwe gracza");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    string nowaNazwa = Console.ReadLine();
+                    gracz.name = nowaNazwa;
+                    break;
+                case 5:
                     wiersze = 4;
                     kolumny = 4;
                     break;
@@ -91,6 +100,8 @@ namespace Konsolowa_TablicaDwuWymiarowa
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Gra Pola !" + '\n');
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Witaj " + gracz.name + "!" + '\n');
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("1. Konfiguracja");
             Console.WriteLine("2. Zagraj");
@@ -103,7 +114,7 @@ namespace Konsolowa_TablicaDwuWymiarowa
                 return;
             }
 
-            Gra gra = new Gra(wiersze, kolumny);
+            Gra gra = new Gra(wiersze, kolumny, gracz);
             Console.Clear();
 
             gra.wypiszTablica();
